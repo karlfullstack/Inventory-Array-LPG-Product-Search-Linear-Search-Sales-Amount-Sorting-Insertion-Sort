@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory - Array</title>
+
+    <style>
+        /* =========================
+           CSS
+        ========================= */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #1d1d1d;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            background-color: #292929;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         HTML
+         INVENTORY - ARRAY
+    ========================== -->
+
+    <div class="container">
+
+        <h1>Inventory - Array</h1>
+
+        <input
+            type="text"
+            id="productName"
+            placeholder="Product Name"
+        >
+
+        <input
+            type="number"
+            id="productPrice"
+            placeholder="Price"
+        >
+
+        <input
+            type="number"
+            id="productStock"
+            placeholder="Stock"
+        >
+
+        <button onclick="addProduct()">
+            Add Product
+        </button>
+
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+
+            <tbody id="inventoryTable"></tbody>
+
+        </table>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           JAVASCRIPT
+           INVENTORY - ARRAY
+        ========================== */
+
+
+        let inventory = [
+            {
+                name: "LPG 11kg",
+                price: 850,
+                stock: 20
+            },
+
+            {
+                name: "LPG 7kg",
+                price: 600,
+                stock: 15
+            },
+
+            {
+                name: "LPG 5kg",
+                price: 450,
+                stock: 10
+            }
+        ];
+
+
+        // Display inventory
+
+        function displayInventory() {
+
+            let table =
+                document.getElementById("inventoryTable");
+
+            table.innerHTML = "";
+
+
+            inventory.forEach(function(product) {
+
+                table.innerHTML += `
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>₱${product.price}</td>
+                        <td>${product.stock}</td>
+                    </tr>
+                `;
+
+            });
+        }
+
+
+        // Add product to the Array
+
+        function addProduct() {
+
+            let name =
+                document.getElementById("productName").value;
+
+            let price =
+                Number(
+                    document.getElementById("productPrice").value
+                );
+
+            let stock =
+                Number(
+                    document.getElementById("productStock").value
+                );
+
+
+            if (name === "" || price <= 0 || stock <= 0) {
+
+                alert("Please enter valid information.");
+
+                return;
+            }
+
+
+            // Store new product inside the Array
+
+            inventory.push({
+                name: name,
+                price: price,
+                stock: stock
+            });
+
+
+            // Clear input boxes
+
+            document.getElementById("productName").value = "";
+            document.getElementById("productPrice").value = "";
+            document.getElementById("productStock").value = "";
+
+
+            // Refresh the table
+
+            displayInventory();
+        }
+
+
+        // Show inventory when page loads
+
+        displayInventory();
+
+    </script>
+
+</body>
+
+</html>
