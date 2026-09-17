@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LPG Product Search - Linear Search</title>
+
+    <style>
+        /* =========================
+           CSS
+        ========================= */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #1d1d1d;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 12px;
+            width: 60%;
+            background-color: #292929;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 12px 18px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #292929;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         HTML
+         LPG PRODUCT SEARCH
+         LINEAR SEARCH
+    ========================== -->
+
+    <div class="container">
+
+        <h1>LPG Product Search</h1>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Enter LPG product name"
+            >
+
+            <button onclick="searchProduct()">
+                Search
+            </button>
+
+        </div>
+
+
+        <div class="result" id="searchResult">
+            Search result will appear here.
+        </div>
+
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTable"></tbody>
+
+        </table>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           JAVASCRIPT
+           LINEAR SEARCH
+        ========================== */
+
+
+        let products = [
+
+            {
+                name: "LPG 11kg",
+                price: 850,
+                stock: 20
+            },
+
+            {
+                name: "LPG 7kg",
+                price: 600,
+                stock: 15
+            },
+
+            {
+                name: "LPG 5kg",
+                price: 450,
+                stock: 10
+            },
+
+            {
+                name: "LPG 2.7kg",
+                price: 300,
+                stock: 8
+            }
+
+        ];
+
+
+        // Display all products
+
+        function displayProducts() {
+
+            let table =
+                document.getElementById("productTable");
+
+            table.innerHTML = "";
+
+
+            products.forEach(function(product) {
+
+                table.innerHTML += `
+
+                    <tr>
+
+                        <td>${product.name}</td>
+
+                        <td>₱${product.price}</td>
+
+                        <td>${product.stock}</td>
+
+                    </tr>
+
+                `;
+
+            });
+
+        }
+
+
+        // LINEAR SEARCH
+
+        function searchProduct() {
+
+            let searchText =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+            let result =
+                document.getElementById("searchResult");
+
+
+            // Check if search box is empty
+
+            if (searchText === "") {
+
+                result.innerHTML =
+                    "Please enter an LPG product.";
+
+                return;
+            }
+
+
+            /*
+                LINEAR SEARCH:
+
+                The program checks the products
+                one by one from the beginning
+                until it finds the product.
+            */
+
+            for (
+                let i = 0;
+                i < products.length;
+                i++
+            ) {
+
+                if (
+                    products[i].name
+                        .toLowerCase()
+                        .includes(searchText)
+                ) {
+
+                    result.innerHTML = `
+
+                        <strong>Product Found!</strong>
+
+                        <br><br>
+
+                        Product:
+                        ${products[i].name}
+
+                        <br>
+
+                        Price:
+                        ₱${products[i].price}
+
+                        <br>
+
+                        Stock:
+                        ${products[i].stock}
+
+                    `;
+
+                    return;
+                }
+
+            }
+
+
+            result.innerHTML =
+                "Product not found.";
+
+        }
+
+
+        displayProducts();
+
+    </script>
+
+</body>
+
+</html>
