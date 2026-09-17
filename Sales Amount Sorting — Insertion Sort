@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Amount Sorting</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #1d1d1d;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: center;
+            color: #bbb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+        }
+
+        td {
+            background-color: #222;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        #message {
+            text-align: center;
+            color: #ccc;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Sales Amount Sorting</h1>
+        <p>Insertion Sort</p>
+
+        <button onclick="sortSales()">Sort Sales Amount</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Sales Amount</th>
+                </tr>
+            </thead>
+
+            <tbody id="salesTable">
+            </tbody>
+        </table>
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <script>
+
+        // Sales records stored inside an array
+        let sales = [
+            {
+                customer: "Karl",
+                product: "LPG 11kg",
+                amount: 1700
+            },
+            {
+                customer: "John Carlo",
+                product: "LPG 7kg",
+                amount: 1200
+            },
+            {
+                customer: "Marc",
+                product: "LPG 5kg",
+                amount: 2250
+            },
+            {
+                customer: "Tobin",
+                product: "LPG 11kg",
+                amount: 850
+            }
+        ];
+
+
+        // Display the sales records in the table
+        function displaySales() {
+
+            let table = document.getElementById("salesTable");
+
+            table.innerHTML = "";
+
+            for (let i = 0; i < sales.length; i++) {
+
+                table.innerHTML += `
+                    <tr>
+                        <td>${sales[i].customer}</td>
+                        <td>${sales[i].product}</td>
+                        <td>₱${sales[i].amount}</td>
+                    </tr>
+                `;
+
+            }
+        }
+
+        function sortSales() {
+
+            for (let i = 1; i < sales.length; i++) {
+
+                let currentSale = sales[i];
+
+                let j = i - 1;
+
+                // Sort from highest sales amount to lowest
+                while (j >= 0 && sales[j].amount < currentSale.amount) {
+
+                    sales[j + 1] = sales[j];
+
+                    j--;
+                }
+
+                sales[j + 1] = currentSale;
+            }
+
+            displaySales();
+
+            document.getElementById("message").innerHTML =
+                "Sales successfully sorted using Insertion Sort!";
+        }
+
+
+        displaySales();
+
+    </script>
+
+</body>
+</html>
